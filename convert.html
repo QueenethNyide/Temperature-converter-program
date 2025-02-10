@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Converter</title>
+    <link rel="stylesheet" href="convert.css">
+</head>
+<body>
+    <div class="landing-page">
+        <h1>Welcome to the Temperature Converter</h1>
+        <p>Convert temperatures between Celsius and Fahrenheit with ease!</p>
+        <button id="start-conversion">Start Conversion</button>
+    </div>
+
+    <div class="converter hidden">
+        <h2>Temperature Converter</h2>
+        <label for="temperature">Enter Temperature:</label>
+        <input type="number" id="temperature" placeholder="e.g., 32">
+        
+        <label for="conversion-type">Select Conversion:</label>
+        <select id="conversion-type">
+            <option value="c-to-f">Celsius to Fahrenheit</option>
+            <option value="f-to-c">Fahrenheit to Celsius</option>
+        </select>
+
+        <button id="convert">Convert</button>
+        <p id="result"></p>
+
+        <button id="back-to-landing">Back</button>
+    </div>
+
+    <script>
+        const startButton = document.getElementById('start-conversion');
+        const converterDiv = document.querySelector('.converter');
+        const landingPageDiv = document.querySelector('.landing-page');
+        const convertButton = document.getElementById('convert');
+        const result = document.getElementById('result');
+
+        
+        startButton.addEventListener('click', () => {
+            landingPageDiv.classList.add('hidden');
+            converterDiv.classList.remove('hidden');
+        });
+
+        
+        convertButton.addEventListener('click', () => {
+            const temp = parseFloat(document.getElementById('temperature').value);
+            const conversionType = document.getElementById('conversion-type').value;
+
+            if (isNaN(temp)) {
+                result.textContent = 'Please enter a valid number.';
+                return;
+            }
+
+            if (conversionType === 'c-to-f') {
+                const fahrenheit = (temp * 9/5) + 32;
+                result.textContent = `${temp}°C is equal to ${fahrenheit.toFixed(2)}°F.`;
+            } else {
+                const celsius = (temp - 32) * 5/9;
+                result.textContent = `${temp}°F is equal to ${celsius.toFixed(2)}°C.`;
+            }
+        });
+
+        const backButton = document.getElementById('back-to-landing');
+
+
+         backButton.addEventListener('click', () => {
+         converterDiv.classList.add('hidden');
+         landingPageDiv.classList.remove('hidden');
+      });
+
+    </script>
+</body>
+</html>
